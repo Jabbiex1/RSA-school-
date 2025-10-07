@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>About Us - Royal Science Academy</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+
+  <!-- FontAwesome for icons -->
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+
+  <style>
+    :root {
+      --primary-color: #004aad;
+      --secondary-color: #0078ff;
+      --accent-color: #ff9900;
+      --text-color: #1a1a1a;
+      --bg-color: #f7f9fc;
+      --card-bg: #fff;
+      --header-height: 70px;
+      --max-content-width: 1200px;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      color: var(--text-color);
+      background-color: var(--bg-color);
+      line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    a {
+      text-decoration: none;
+      color: var(--primary-color);
+      transition: color 0.3s ease;
+    }
+
+    a:hover,
+    a:focus {
+      color: var(--secondary-color);
+      outline: none;
+    }
+
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: var(--header-height);
+      background-color: var(--primary-color);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 2rem;
+      z-index: 10000;
+      box-shadow: 0 2px 6px rgb(0 0 0 / 0.15);
+    }
+
+    .logo-container {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      user-select: none;
+    }
+
+    .logo-container img {
+      height: 50px;
+      border-radius: 8px;
+      box-shadow: 0 0 8px rgb(0 74 173 / 0.5);
+    }
+
+    .logo-container h1 {
+      font-size: 1.8rem;
+      font-weight: 600;
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+    }
+
+    nav a {
+      font-weight: 600;
+      font-size: 1rem;
+      padding: 0.5rem 0;
+      position: relative;
+      color: white;
+    }
+
+    nav a::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: -5px;
+      width: 0;
+      height: 2px;
+      background-color: var(--accent-color);
+      transition: width 0.3s ease;
+    }
+
+    nav a:hover::after,
+    nav a:focus::after,
+    nav a.active::after {
+      width: 100%;
+    }
+
+    nav a:hover,
+    nav a:focus {
+      color: var(--accent-color);
+      outline: none;
+    }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+      gap: 5px;
+      z-index: 10001;
+    }
+
+    .hamburger div {
+      width: 25px;
+      height: 3px;
+      background-color: white;
+      border-radius: 2px;
+      transition: all 0.3s ease;
+    }
+
+    nav.mobile-active {
+      position: fixed;
+      top: var(--header-height);
+      right: 0;
+      background: var(--primary-color);
+      flex-direction: column;
+      width: 200px;
+      padding: 1rem;
+      gap: 1rem;
+      height: calc(100vh - var(--header-height));
+      box-shadow: -3px 0 6px rgb(0 0 0 / 0.15);
+      transform: translateX(0);
+      transition: transform 0.3s ease;
+    }
+
+    nav.mobile-active a {
+      color: white;
+      font-size: 1.2rem;
+      font-weight: 600;
+    }
+
+    nav.mobile-active a::after {
+      display: none;
+    }
+
+    main {
+      margin-top: var(--header-height);
+      max-width: var(--max-content-width);
+      padding: 3rem 2rem 4rem;
+      margin-left: auto;
+      margin-right: auto;
+      flex: 1;
+      background: var(--card-bg);
+      box-shadow: 0 8px 30px rgb(0 0 0 / 0.1);
+      border-radius: 14px;
+    }
+
+    section {
+      margin-bottom: 3rem;
+    }
+
+    h2 {
+      color: var(--primary-color);
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      border-bottom: 3px solid var(--accent-color);
+      padding-bottom: 0.5rem;
+      max-width: max-content;
+    }
+
+    h3 {
+      color: var(--secondary-color);
+      margin-top: 1.5rem;
+      margin-bottom: 0.5rem;
+      font-size: 1.35rem;
+    }
+
+    p {
+      max-width: 100%;
+      line-height: 1.7;
+      margin-bottom: 1rem;
+      font-size: 1.1rem;
+      text-align: left;
+      color: var(--text-color);
+    }
+
+    .leadership {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      margin-top: 1rem;
+    }
+
+    .leader {
+      flex: 1 1 300px;
+      background: #f9faff;
+      padding: 1.5rem 1.8rem;
+      border-radius: 10px;
+      box-shadow: 0 3px 10px rgb(0 74 173 / 0.12);
+      transition: box-shadow 0.3s ease;
+      cursor: default;
+    }
+
+    .leader:hover,
+    .leader:focus-within {
+      box-shadow: 0 6px 15px rgb(0 74 173 / 0.18);
+      outline: none;
+    }
+
+    .staff-grid,
+    .facility-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.5rem;
+      margin-top: 1rem;
+    }
+
+    .staff-card,
+    .facility-item,
+    .achievement-item {
+      background: #fefefe;
+      padding: 1.25rem 1.75rem;
+      border-radius: 10px;
+      box-shadow: 0 3px 10px rgb(0 0 0 / 0.1);
+      transition: box-shadow 0.3s ease, background-color 0.3s ease;
+      cursor: default;
+      text-align: center;
+      font-weight: 600;
+      color: var(--primary-color);
+      font-size: 1.1rem;
+      user-select: none;
+    }
+
+    .staff-card:hover,
+    .staff-card:focus-within,
+    .facility-item:hover,
+    .facility-item:focus,
+    .achievement-item:hover,
+    .achievement-item:focus {
+      box-shadow: 0 6px 15px rgb(0 0 0 / 0.15);
+      background-color: #c7dbff;
+      outline: none;
+    }
+
+    footer {
+      text-align: center;
+      padding: 1.5rem 1rem;
+      background: var(--primary-color);
+      color: white;
+      font-size: 0.9rem;
+      user-select: none;
+      margin-top: 2rem;
+      border-radius: 0 0 14px 14px;
+    }
+
+    @media (max-width: 900px) {
+      main {
+        max-width: 90%;
+        padding: 2.5rem 1.5rem 3rem;
+      }
+
+      .leadership {
+        flex-direction: column;
+      }
+    }
+
+    @media (max-width: 600px) {
+      nav {
+        display: none;
+      }
+
+      .hamburger {
+        display: flex;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="logo-container" aria-label="Royal Science Academy Logo and Name">
+      <img src="Royal logo.jpeg" alt="Royal Science Academy Logo" />
+      <h1>Royal Science Academy</h1>
+    </div>
+    <nav role="navigation" aria-label="Primary Navigation" id="primaryNav">
+      <a href="home.html">Home</a>
+      <a href="admission.php" tabindex="0">Admission</a>
+      <a href="about.html" class="active">About</a>
+      <a href="portal-login.html">Portal</a>
+      <a href="contact.html">Contact</a>
+      <a href="admin-login.php">Admin</a>
+    </nav>
+    <div class="hamburger" aria-label="Toggle menu" role="button" tabindex="0" aria-expanded="false" id="hamburgerBtn">
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+  </header>
+
+  <main>
+    <section>
+      <h2>School History & Philosophy</h2>
+      <p>
+        Founded in Kaffu Bullom Chiefdom, Lungi, Royal Science Academy began with a vision to provide transformative,
+        science-oriented education from Kindergarten to Junior Secondary School. The School was founded in September
+        2024. Our philosophy centers on nurturing critical thinking, creativity, and leadership in a safe and inclusive
+        environment.
+      </p>
+    </section>
+
+    <section>
+      <h2>Accreditation & Affiliations</h2>
+      <p>
+        Royal Science Academy is accredited by the Ministry of Basic and Senior Secondary Education (MBSSE) and
+        maintains affiliations with national and international education bodies focused on STEM development and holistic
+        education practices.
+      </p>
+    </section>
+
+    <section>
+      <h2>Achievements</h2>
+      <div class="facility-list">
+        <div class="achievement-item">100% pass rate in the 2025 NPSE, with a top score of 320</div>
+        <div class="achievement-item">Participation of RSA pupils in the Kids Parliament</div>
+        <div class="achievement-item">Hosting of Guest Speakers</div>
+      </div>
+    </section>
+
+    <section>
+      <h2>School Leadership</h2>
+      <div class="leadership">
+        <article class="leader" tabindex="0">
+          <h3>Proprietor 1 & 2</h3>
+          <p>Founders of Royal Science Academy, guiding the overall vision and strategic direction of the school.</p>
+        </article>
+        <article class="leader" tabindex="0">
+          <h3>Board Chairman</h3>
+          <p>Oversees governance, ensures adherence to educational standards and policies, and supports school
+            leadership.
+          </p>
+        </article>
+        <article class="leader" tabindex="0">
+          <h3>Principal (JSS Level)</h3>
+          <p>Leads the Junior Secondary School division, focusing on curriculum implementation and student development.
+          </p>
+        </article>
+        <article class="leader" tabindex="0">
+          <h3>Vice Principal (JSS Level)</h3>
+          <p>Assists the Principal in administrative duties and supports both students and teaching staff.</p>
+        </article>
+        <article class="leader" tabindex="0">
+          <h3>Headteacher (Primary Level)</h3>
+          <p>Responsible for managing the Primary School, ensuring quality teaching and holistic student growth.</p>
+        </article>
+        <article class="leader" tabindex="0">
+          <h3>Deputy Headteacher (Primary Level)</h3>
+          <p>Supports the Headteacher in administration and student affairs at the Primary Level.</p>
+        </article>
+        <article class="leader" tabindex="0">
+          <h3>Headmistress (Kindergarten)</h3>
+          <p>Leads early childhood education programs, nurturing creativity and foundational learning skills.</p>
+        </article>
+        <article class="leader" tabindex="0">
+          <h3>Senior Teachers & Staff</h3>
+          <p>Experienced educators and administrative staff who maintain academic excellence and school operations.</p>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <h2>School Facilities & Resources</h2>
+      <div class="facility-list">
+        <div class="facility-item">Modern Classrooms</div>
+        <div class="facility-item">Fully Equipped Science Labs</div>
+        <div class="facility-item">Digital Library</div>
+        <div class="facility-item">Computer Lab with Internet Access</div>
+        <div class="facility-item">Playground & Sports Field</div>
+      </div>
+    </section>
+
+    <section>
+      <h2>School Activities</h2>
+      <div class="facility-list">
+        <div class="facility-item">Public Speaking and Debate</div>
+        <div class="facility-item">Talkshow</div>
+        <div class="facility-item">Guest Speaker Sessions</div>
+        <div class="facility-item">Spelling Bee</div>
+        <div class="facility-item">News Reading</div>
+        <div class="facility-item">STEM Bootcamp</div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Royal Science Academy. All rights reserved.</p>
+  </footer>
+
+  <script>
+    const hamburger = document.getElementById('hamburgerBtn');
+    const nav = document.getElementById('primaryNav');
+
+    hamburger.addEventListener('click', () => {
+      const expanded = hamburger.getAttribute('aria-expanded') === 'true' || false;
+      hamburger.setAttribute('aria-expanded', !expanded);
+      nav.classList.toggle('mobile-active');
+    });
+
+    hamburger.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        hamburger.click();
+      }
+    });
+  </script>
+</body>
+
+</html>

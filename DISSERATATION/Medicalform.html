@@ -1,0 +1,262 @@
+<?php
+session_start();
+
+if (!isset($_SESSION['studentID']) || !isset($_SESSION['class'])) {
+    header("Location: student-login.php");
+    exit();
+}
+
+$studentID = htmlspecialchars($_SESSION['studentID']);
+$class = htmlspecialchars($_SESSION['class']);
+
+if (isset($_GET['logout'])) {
+    session_destroy();
+    header("Location: student-login.php");
+    exit();
+}
+
+$host = 'localhost';
+$db = 'royal_academy';
+$user = 'root';
+$pass = '';
+$charset = 'utf8mb4';
+
+$dsn = "mysql:host=$host;dbname=$db;charset=$charset";
+$options = [
+    PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+    PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+];
+
+function getLetterGrade($total) {
+    if ($total >= 90) return 'A';
+    if ($total >= 80) return 'B';
+    if ($total >= 70) return 'C';
+    if ($total >= 60) return 'D';
+    return 'F';
+}
+
+$termsOrder = ['First Term', 'Second Term', 'Third Term'];
+$termSelected = $_POST['term'] ?? 'First Term';
+$termsToShow = [];
+foreach ($termsOrder as $t) {
+    $termsToShow[] = $t;
+    if($t === $termSelected) break;
+}
+
+try {
+    $pdo = new PDO($dsn, $user, $pass, $options);
+
+    // Student Name
+    $stmt = $pdo->prepare("SELECT name FROM students WHERE id=?");
+    $stmt->execute([$studentID]);
+    $student = $stmt->fetch();
+    $studentName = $student['name'] ?? 'Student Name';
+
+    // Subjects
+    $stmtSubj = $pdo->prepare("SELECT DISTINCT subject FROM grades WHERE student_id=?");
+    $stmtSubj->execute([$studentID]);
+    $subjects = $stmtSubj->fetchAll(PDO::FETCH_COLUMN);
+
+    // Grades array
+    $grades = [];
+    foreach ($subjects as $subject) {
+        foreach ($termsToShow as $term) {
+            $stmtG = $pdo->prepare("SELECT assignment,test,exam FROM grades WHERE student_id=? AND subject=? AND terms=?");
+            $stmtG->execute([$studentID,$subject,$term]);
+            $row = $stmtG->fetch();
+            $assignment = $row['assignment'] ?? 0;
+            $test = $row['test'] ?? 0;
+            $exam = $row['exam'] ?? 0;
+            $total = $assignment + $test + $exam;
+            $grades[$subject][$term] = [
+                'assignment'=>$assignment,
+                'test'=>$test,
+                'exam'=>$exam,
+                'total'=>$total,
+                'letter'=>getLetterGrade($total)
+            ];
+        }
+    }
+
+    // Term averages
+    $averages = [];
+    foreach($termsToShow as $term){
+        $sum=0;
+        $count=0;
+        foreach($subjects as $subject){
+            $sum+=$grades[$subject][$term]['total'];
+            $count++;
+        }
+        $averages[$term]=$count?($sum/$count):0;
+    }
+
+    // Overall position
+    $stmtPos = $pdo->prepare("SELECT position FROM positions WHERE student_id=?");
+    $stmtPos->execute([$studentID]);
+    $posRow = $stmtPos->fetch();
+    $overallPosition = $posRow['position'] ?? 'N/A';
+
+} catch(PDOException $e){
+    $error = "Database Error: ".$e->getMessage();
+}
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Student Dashboard - Royal Science Academy</title>
+<style>
+body {
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background:#f7f9fc;
+    margin:0;
+    padding:0;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+}
+header {
+    width:100%;
+    max-width:980px;
+    padding:1rem 2rem;
+    background:#004aad;
+    color:white;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    border-radius:8px 8px 0 0;
+    box-shadow:0 4px 12px rgba(0,0,0,0.2);
+}
+header h1 { margin:0; font-size:1.8rem; }
+main {
+    width:100%;
+    max-width:980px;
+    background:white;
+    padding:2rem;
+    border-radius:0 0 8px 8px;
+    box-shadow:0 8px 24px rgba(0,0,0,0.15);
+    margin-bottom:50px;
+}
+form select {
+    padding:0.4rem 0.8rem;
+    font-size:1rem;
+    border-radius:6px;
+    border:1.5px solid #004aad;
+    font-weight:600;
+    margin-bottom:1rem;
+}
+.dashboard {
+    display:flex;
+    flex-direction:column;
+    gap:1.5rem;
+}
+.result-row {
+    display:flex;
+    flex-wrap:wrap;
+    border:1px solid #ddd;
+}
+.subject-column {
+    flex:1 1 180px;
+    background:#e6f0ff;
+    padding:10px;
+    font-weight:600;
+    color:#004aad;
+    border-right:1px solid #ddd;
+}
+.term-column {
+    flex:3 1 500px;
+    display:flex;
+    flex-direction:column;
+    border-left:1px solid #ddd;
+}
+.term-box {
+    display:flex;
+    flex-wrap:wrap;
+    border-bottom:1px solid #ddd;
+}
+.term-box div {
+    flex:1 1 120px;
+    padding:8px;
+    text-align:center;
+    border-right:1px solid #ddd;
+}
+.term-box div:last-child { border-right:none; }
+.grade-A{color:#2ecc71;} .grade-B{color:#3498db;} .grade-C{color:#f1c40f;} .grade-D{color:#e67e22;} .grade-F{color:#e74c3c;}
+.summary { margin-top:2rem; text-align:center; font-weight:700; }
+button.logout-btn {
+    background:#2980b9;
+    color:white;
+    padding:10px 20px;
+    border:none;
+    border-radius:25px;
+    cursor:pointer;
+    font-weight:700;
+    transition:0.3s;
+}
+button.logout-btn:hover { background:#1f618d; }
+button.download-btn {
+    background:#004aad;
+    color:white;
+    padding:12px 36px;
+    border:none;
+    border-radius:25px;
+    cursor:pointer;
+    font-weight:700;
+    margin:2rem auto 0;
+    display:block;
+}
+button.download-btn:hover { background:#002f6c; transform:scale(1.05); }
+@media(max-width:768px) {
+    .result-row { flex-direction:column; }
+    .term-column { border-left:none; }
+    .term-box div { flex:1 1 100%; border-right:none; border-bottom:1px solid #ddd; }
+    .term-box div:last-child { border-bottom:none; }
+}
+@media print { button.download-btn, button.logout-btn, form { display:none; } body { background:white; } }
+</style>
+</head>
+<body>
+<header>
+<h1>Royal Science Academy</h1>
+<form method="GET"><button type="submit" name="logout" class="logout-btn">Logout</button></form>
+</header>
+<main>
+<h2><?= htmlspecialchars($studentName) ?> - Result</h2>
+<form method="POST">
+<label>Select Term:</label>
+<select name="term" onchange="this.form.submit()">
+<?php foreach($termsOrder as $t): ?>
+<option value="<?= $t ?>" <?= $termSelected==$t?'selected':'' ?>><?= $t ?></option>
+<?php endforeach; ?>
+</select>
+</form>
+
+<div class="dashboard">
+<?php foreach($subjects as $subject): ?>
+<div class="result-row">
+    <div class="subject-column"><?= htmlspecialchars($subject) ?></div>
+    <div class="term-column">
+        <?php foreach($termsToShow as $term):
+            $g=$grades[$subject][$term];
+        ?>
+        <div class="term-box">
+            <div><?= $term ?></div>
+            <div>A: <?= $g['assignment'] ?></div>
+            <div>T: <?= $g['test'] ?></div>
+            <div>E: <?= $g['exam'] ?></div>
+            <div class="grade-<?= $g['letter'] ?>">Total: <?= $g['total'] ?> (<?= $g['letter'] ?>)</div>
+        </div>
+        <?php endforeach; ?>
+    </div>
+</div>
+<?php endforeach; ?>
+</div>
+
+<div class="summary">
+<p>Overall Position: <?= htmlspecialchars($overallPosition) ?></p>
+<button class="download-btn" onclick="window.print()">Download PDF</button>
+</div>
+</main>
+</body>
+</html>

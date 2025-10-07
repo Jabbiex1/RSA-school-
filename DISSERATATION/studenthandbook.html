@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Royal Science Academy - Student Handbook</title>
+    <style>
+        :root {
+            --primary-color: #004aad;
+            --secondary-color: #0094ff;
+            --text-color: #002c61;
+            --white: #ffffff;
+            --bg-color: #f0f6ff;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-size: 20px;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+        }
+
+        h1 {
+            text-align: center;
+            color: var(--primary-color);
+            margin-bottom: 30px;
+        }
+
+        section.handbook {
+            max-width: 1000px;
+            margin: auto;
+            background-color: var(--white);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+            border-left: 10px solid var(--primary-color);
+        }
+
+        section.handbook h2 {
+            color: var(--primary-color);
+            margin-top: 30px;
+            margin-bottom: 10px;
+        }
+
+        section.handbook p,
+        section.handbook ul {
+            line-height: 1.8;
+            margin-bottom: 15px;
+        }
+
+        section.handbook ul {
+            padding-left: 25px;
+        }
+
+        nav.toc {
+            max-width: 1000px;
+            margin: 20px auto;
+            background: var(--white);
+            border-left: 6px solid var(--secondary-color);
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+        }
+
+        nav.toc h3 {
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+
+        nav.toc ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        nav.toc li {
+            margin: 8px 0;
+        }
+
+        nav.toc a {
+            color: var(--secondary-color);
+            text-decoration: none;
+        }
+
+        nav.toc a:hover {
+            text-decoration: underline;
+        }
+
+        .downloads {
+            text-align: center;
+            margin: 30px 0;
+        }
+
+        .downloads a {
+            background: var(--primary-color);
+            color: var(--white);
+            padding: 10px 20px;
+            margin: 0 10px;
+            text-decoration: none;
+            border-radius: 6px;
+            font-size: 18px;
+        }
+
+        .downloads a:hover {
+            background: var(--secondary-color);
+        }
+
+        .back-button {
+            display: flex;
+            justify-content: center;
+            margin-top: 40px;
+        }
+
+        .back-button a {
+            background-color: var(--primary-color);
+            color: var(--white);
+            padding: 15px 30px;
+            text-decoration: none;
+            font-size: 20px;
+            border-radius: 8px;
+            transition: background-color 0.3s ease;
+        }
+
+        .back-button a:hover {
+            background-color: var(--secondary-color);
+        }
+
+        @media (max-width: 768px) {
+            body {
+                font-size: 18px;
+            }
+
+            .downloads a {
+                display: block;
+                margin: 10px auto;
+                width: 80%;
+            }
+
+            .back-button a {
+                font-size: 18px;
+                padding: 12px 24px;
+            }
+        }
+    </style>
+    <!-- jsPDF Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <!-- docx.js Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/docxtemplater/3.23.0/docxtemplater.js"></script>
+</head>
+
+<body>
+
+    <h1>Royal Science Academy - Student Handbook</h1>
+
+    <nav class="toc">
+        <h3>📚 Table of Contents</h3>
+        <ul>
+            <li><a href="#welcome">Welcome Message</a></li>
+            <li><a href="#overview">School Overview</a></li>
+            <li><a href="#academic">Academic Policies</a></li>
+            <li><a href="#behavior">Behavior Expectations</a></li>
+            <li><a href="#attendance">Attendance Guidelines</a></li>
+            <li><a href="#dresscode">Dress Code Summary</a></li>
+            <li><a href="#discipline">Disciplinary Measures</a></li>
+            <li><a href="#activities">Extracurricular Activities</a></li>
+            <li><a href="#health">Health & Safety Guidelines</a></li>
+            <li><a href="#tech">Technology & Device Use</a></li>
+        </ul>
+    </nav>
+
+    <section class="handbook">
+
+        <h2 id="welcome">Welcome Message</h2>
+        <p>Welcome to Royal Science Academy! This handbook serves as your guide to the values, policies, and
+            expectations of our school community.</p>
+
+        <h2 id="overview">School Overview</h2>
+        <p>Royal Science Academy is committed to providing a nurturing environment for academic excellence, character
+            development, and innovation.</p>
+
+        <h2 id="academic">Academic Policies</h2>
+        <ul>
+            <li>Regular assignments, homework, and assessments are compulsory.</li>
+            <li>Grades are awarded based on continuous assessment and final exams.</li>
+            <li>Academic dishonesty such as cheating or plagiarism will result in disciplinary action.</li>
+        </ul>
+
+        <h2 id="behavior">Behavior Expectations</h2>
+        <ul>
+            <li>Respect for teachers, staff, and peers is mandatory.</li>
+            <li>Students must act with honesty, kindness, and integrity at all times.</li>
+            <li>No bullying, harassment, or discrimination is tolerated.</li>
+        </ul>
+
+        <h2 id="attendance">Attendance Guidelines</h2>
+        <ul>
+            <li>Minimum of 85% attendance is required each term.</li>
+            <li>Late arrivals must report to the front office before joining class.</li>
+            <li>Absences must be justified with a valid note from a parent/guardian.</li>
+        </ul>
+
+        <h2 id="dresscode">Dress Code Summary</h2>
+        <ul>
+            <li>👧 Girls: White shirt and blue-black skirt or shorts.</li>
+            <li>👦 Boys: White shirt and blue trousers.</li>
+            <li>Neat grooming and clean shoes are expected daily.</li>
+        </ul>
+
+        <h2 id="discipline">Disciplinary Measures</h2>
+        <p>Violations of school rules may result in warnings, detention, suspension, or expulsion depending on the
+            severity of the infraction.</p>
+
+        <h2 id="activities">Extracurricular Activities</h2>
+        <p>Students are encouraged to participate in sports, clubs, music, debate, and community service for holistic
+            development.</p>
+
+        <h2 id="health">Health & Safety Guidelines</h2>
+        <ul>
+            <li>Emergency drills are conducted regularly.</li>
+            <li>Students must report illness or injury to a teacher or school nurse immediately.</li>
+            <li>First aid and health services are available on campus.</li>
+        </ul>
+
+        <h2 id="tech">Technology & Device Use</h2>
+        <ul>
+            <li>Personal devices may only be used under teacher supervision.</li>
+            <li>Cyberbullying and misuse of technology will be addressed strictly.</li>
+            <li>Internet usage must follow the school’s Acceptable Use Policy.</li>
+        </ul>
+
+    </section>
+
+    <div class="downloads">
+        <a href="javascript:void(0);" onclick="downloadPDF()">📄 Download PDF</a>
+        <a href="javascript:void(0);" onclick="downloadWord()">📝 Download Word</a>
+    </div>
+
+    <div class="back-button">
+        <a href="portal.html">🔙 Back to Portal</a>
+    </div>
+
+    <script>
+        function downloadPDF() {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+            doc.html(document.querySelector(".handbook"), {
+                callback: function (doc) {
+                    doc.save('Student_Handbook.pdf');
+                }
+            });
+        }
+
+        function downloadWord() {
+            const docx = new docxtemplater();
+            const doc = new docx.Document();
+            doc.addSection({
+                properties: {},
+                children: [
+                    new docx.Paragraph({
+                        children: [
+                            new docx.TextRun("Royal Science Academy - Student Handbook")
+                        ]
+                    }),
+                    new docx.Paragraph({
+                        children: [
+                            new docx.TextRun("Content goes here...")
+                        ]
+                    })
+                ]
+            });
+            const buffer = docx.Packer.toBuffer(doc);
+            const blob = new Blob([buffer], { type: "application/vnd.openxmlformats-officedocument.wordprocessingml.document" });
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = "Student_Handbook.docx";
+            link.click();
+        }
+    </script>
+
+</body>
+
+</html>

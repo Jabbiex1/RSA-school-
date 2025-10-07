@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Events & News - Royal Science Academy</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary-color: #004aad;
+            --secondary-color: #0094ff;
+            --accent-color: #ffd700;
+            --text-color: #1813b1;
+            --white: #fff;
+            --bg-color: #f2f6ff;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            animation: fadeInBody 1.5s ease-in-out;
+        }
+
+        @keyframes fadeInBody {
+            0% {
+                opacity: 0;
+            }
+
+            100% {
+                opacity: 1;
+            }
+        }
+
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 15px 20px;
+            animation: slideDown 1s ease;
+        }
+
+        @keyframes slideDown {
+            from {
+                transform: translateY(-100%);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        .logo img {
+            height: 10px;
+            width: fit-content;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-color);
+        }
+
+        main {
+            padding: 40px 20px;
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        section {
+            margin-bottom: 60px;
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+            animation: fadeIn 1s ease-in-out;
+            transition: transform 0.3s ease;
+        }
+
+        section:hover {
+            transform: translateY(-5px);
+        }
+
+        h2 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+
+        .login-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .login-box {
+            border: 1px solid #ddd;
+            padding: 20px;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+            transition: box-shadow 0.3s ease;
+        }
+
+        .login-box:hover {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .login-box form input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .login-box form button {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s;
+        }
+
+        .login-box form button:hover {
+            background-color: var(--secondary-color);
+        }
+
+        ul {
+            list-style-type: square;
+            padding-left: 20px;
+            line-height: 1.8;
+        }
+
+        a {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .calendar {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .calendar-event {
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 15px;
+            border-radius: 6px;
+            transition: transform 0.3s ease;
+        }
+
+        .calendar-event:hover {
+            transform: scale(1.03);
+        }
+
+        footer {
+            background-color: var(--primary-color);
+            color: white;
+            text-align: center;
+            padding: 20px;
+            font-size: 0.9rem;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(15px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .nav-links {
+                flex-direction: column;
+                gap: 10px;
+                margin-top: 10px;
+            }
+
+            section {
+                padding: 20px;
+            }
+
+            .calendar-event {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center gap-2" href="portal.html">
+                <img src="Royal logo.jpeg" alt="Royal Science Academy Logo">
+                Royal Science Academy
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <header class="text-white text-center py-5">
+        <h1>Events & News</h1>
+        <p class="lead">Stay updated with our latest happenings</p>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container my-5">
+        <div class="row">
+            <!-- Events Column -->
+            <div class="col-lg-6 mb-4">
+                <h2 class="mb-4 text-primary">Upcoming Events</h2>
+
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <h5 class="card-title">Science Fair 2025</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">June 15, 2025</h6>
+                        <p class="card-text">Join us for a full day of STEM showcases, innovation demos, and inspiring
+                            presentations.</p>
+                    </div>
+                </div>
+
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <h5 class="card-title">Parent-Teacher Conference</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">July 2, 2025</h6>
+                        <p class="card-text">Meet the faculty, discuss student progress, and learn more about RSA's
+                            academic approach.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- News Column -->
+            <div class="col-lg-6 mb-4">
+                <h2 class="mb-4 text-success">Latest News</h2>
+
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <h5 class="card-title">New E-learning Platform Launched</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">May 5, 2025</h6>
+                        <p class="card-text">RSA introduces a modern digital platform to enhance remote and hybrid
+                            learning experiences.</p>
+                    </div>
+                </div>
+
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <h5 class="card-title">Student Wins National Coding Competition</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">April 20, 2025</h6>
+                        <p class="card-text">Sarah Kamara secures 1st place in the National Junior Coding Championship
+                            2025. Congratulations!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Back to Home Button -->
+        <div class="text-center btn-home">
+            <a href="home.html" class="btn btn-primary btn-lg">← Back to Home</a>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="text-center py-3">
+        &copy; 2025 Royal Science Academy. All rights reserved.
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
+</html>

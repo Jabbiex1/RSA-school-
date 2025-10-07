@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Contact Us - Royal Science Academy</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+
+  <!-- FontAwesome for Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+
+  <style>
+    :root {
+      --primary-color: #0a4d8c;
+      --secondary-color: #ffd700;
+      --accent-color: #ff6600;
+      --text-color: #333;
+      --bg-color: #f9f9f9;
+      --white: #ffffff;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      line-height: 1.6;
+      background: var(--bg-color);
+      color: var(--text-color);
+    }
+
+    /* Header */
+    header {
+      background: var(--primary-color);
+      color: var(--white);
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    header h1 {
+      font-size: 1.5rem;
+    }
+
+    nav {
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    nav a {
+      font-weight: 600;
+      font-size: 1rem;
+      padding: 0.5rem 0;
+      position: relative;
+      color: white;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    nav a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -5px;
+      width: 0%;
+      height: 2px;
+      background: var(--accent-color);
+      transition: width 0.3s ease;
+    }
+
+    nav a:hover,
+    nav a:focus {
+      color: var(--accent-color);
+    }
+
+    nav a:hover::after,
+    nav a:focus::after {
+      width: 100%;
+    }
+
+    nav a.active {
+      color: var(--accent-color);
+    }
+
+    nav a.active::after {
+      width: 100%;
+    }
+
+    /* Main Section */
+    main {
+      padding: 3rem 2rem;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    .section-title {
+      font-size: 2rem;
+      color: var(--primary-color);
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+
+    .contact-info,
+    .contact-form {
+      background: var(--white);
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      margin-bottom: 2rem;
+    }
+
+    .contact-info h2,
+    .contact-form h2 {
+      margin-bottom: 1rem;
+      color: var(--accent-color);
+    }
+
+    .info-item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+
+    .info-item i {
+      color: var(--primary-color);
+      margin-right: 10px;
+      font-size: 1.2rem;
+    }
+
+    .contact-form form {
+      display: grid;
+      gap: 1rem;
+    }
+
+    .contact-form input,
+    .contact-form textarea {
+      width: 100%;
+      padding: 0.8rem;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 1rem;
+    }
+
+    .contact-form button {
+      padding: 0.8rem;
+      background: var(--primary-color);
+      color: var(--white);
+      font-size: 1rem;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .contact-form button:hover {
+      background: var(--accent-color);
+    }
+
+    /* Map */
+    .map {
+      margin: 2rem 0;
+      text-align: center;
+    }
+
+    .map iframe {
+      border-radius: 12px;
+      width: 100%;
+      height: 400px;
+    }
+
+    /* Footer */
+    footer {
+      background: var(--primary-color);
+      color: var(--white);
+      padding: 1.5rem;
+      text-align: center;
+      margin-top: 2rem;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Header -->
+  <header>
+    <h1>Royal Science Academy</h1>
+    <nav>
+      <a href="home.html">Home</a>
+      <a href="about.html">About Us</a>
+      <a href="admission.php">Admission</a>
+      <a href="portal-login.html">Portal</a>
+      <a href="contact.html" class="active">Contact</a>
+    </nav>
+  </header>
+
+  <!-- Main Content -->
+  <main>
+    <h2 class="section-title">Contact Us</h2>
+
+    <!-- Contact Info -->
+    <div class="contact-info">
+      <h2>Get in Touch</h2>
+      <div class="info-item"><i class="fas fa-map-marker-alt"></i> 12 Alusine Street, Wasaya, Lungi</div>
+
+      <section>
+        <h3>Phone Numbers</h3>
+        <p>📞 077530708</p>
+        <p>📞 088676184</p>
+        <p>📞 077268504</p>
+        <p>📞 077426760</p>
+        <p>📞 077485161</p>
+      </section>
+
+      <section>
+        <h3>Email</h3>
+        <p>📧 royalscinceacademy2024@gmail.com</p>
+      </section>
+    </div>
+
+    <!-- Contact Form -->
+    <div class="contact-form">
+      <h2>Send Us a Message</h2>
+      <form>
+        <input type="text" placeholder="Your Name" required />
+        <input type="email" placeholder="Your Email" required />
+        <textarea rows="5" placeholder="Your Message" required></textarea>
+        <button type="submit">Send Message</button>
+      </form>
+    </div>
+
+    <!-- Map -->
+    <div class="map">
+      <h2>Find Us on the Map</h2>
+      <iframe
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3911.123456789!2d-13.2341234!3d8.4835678!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x11a2356789abcff%3A0x1234567890abcdef!2s12%20Alusine%20Street%2C%20Wasaya%2C%20Lungi!5e0!3m2!1sen!2ssl!4v1692547200000"
+        allowfullscreen="" loading="lazy" style="border:0;">
+      </iframe>
+    </div>
+
+
+    <!-- Footer -->
+    <footer>
+      <p>&copy; 2025 Royal Science Academy. All rights reserved.</p>
+    </footer>
+</body>
+
+</html>

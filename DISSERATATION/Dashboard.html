@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>User Dashboard - SkillLearn</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f3f8ff;
+            color: #333;
+        }
+
+        header {
+            background: #004aad;
+            padding: 20px 30px;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header h1 {
+            font-size: 1.8rem;
+        }
+
+        .logout-btn {
+            background: white;
+            color: #004aad;
+            padding: 10px 16px;
+            border: none;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .dashboard {
+            padding: 40px 20px;
+            max-width: 900px;
+            margin: auto;
+        }
+
+        .welcome {
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+        }
+
+        .course-card {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+        }
+
+        .course-title {
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: #004aad;
+        }
+
+        .progress-bar-container {
+            background: #eee;
+            border-radius: 10px;
+            overflow: hidden;
+            height: 14px;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: #0094ff;
+            width: 70%;
+        }
+
+        .certificate-link {
+            display: inline-block;
+            margin-top: 10px;
+            color: #004aad;
+            text-decoration: underline;
+            cursor: pointer;
+        }
+
+        /* Hidden certificate design */
+        #certificate-template {
+            display: none;
+            width: 1000px;
+            height: 700px;
+            padding: 60px;
+            background: white;
+            border: 10px solid #004aad;
+            text-align: center;
+            font-family: 'Georgia', serif;
+        }
+
+        #certificate-template h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: #004aad;
+        }
+
+        #certificate-template h2 {
+            margin-top: 30px;
+            font-size: 1.8rem;
+            color: #222;
+        }
+
+        #certificate-template p {
+            margin-top: 40px;
+            font-size: 1.2rem;
+        }
+
+        .certificate-logo {
+            position: absolute;
+            top: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            max-width: 150px;
+            opacity: 0.2;
+        }
+
+        .certificate-signature {
+            margin-top: 60px;
+            font-size: 1.2rem;
+            font-style: italic;
+        }
+
+        @media (max-width: 600px) {
+            header h1 {
+                font-size: 1.4rem;
+            }
+
+            .dashboard {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>SkillLearn Dashboard</h1>
+        <button class="logout-btn">Logout</button>
+    </header>
+
+    <div class="dashboard">
+        <div class="welcome">Welcome back, Emmanuel 👋</div>
+
+        <!-- Course List (10 courses) -->
+        <div class="course-card">
+            <div class="course-title">Web Development</div>
+            <div class="progress-bar-container">
+                <div class="progress-bar" style="width: 70%;"></div>
+            </div>
+            <span class="certificate-link"
+                onclick="generateCertificate('Emmanuel Brima Koroma', 'Web Development')">Download Certificate</span>
+        </div>
+
+        <div class="course-card">
+            <div class="course-title">UI/UX Design</div>
+            <div class="progress-bar-container">
+                <div class="progress-bar" style="width: 40%;"></div>
+            </div>
+            <span class="certificate-link"
+                onclick="generateCertificate('Emmanuel Brima Koroma', 'UI/UX Design')">Download Certificate</span>
+        </div>
+
+        <div class="course-card">
+            <div class="course-title">Data Science</div>
+            <div class="progress-bar-container">
+                <div class="progress-bar" style="width: 85%;"></div>
+            </div>
+            <span class="certificate-link"
+                onclick="generateCertificate('Emmanuel Brima Koroma', 'Data Science')">Download Certificate</span>
+        </div>
+
+        <div class="course-card">
+            <div class="course-title">Digital Marketing</div>
+            <div class="progress-bar-container">
+                <div class="progress-bar" style="width: 60%;"></div>
+            </div>
+            <span class="certificate-link"
+                onclick="generateCertificate('Emmanuel Brima Koroma', 'Digital Marketing')">Download Certificate</span>
+        </div>
+
+        <div class="course-card">
+            <div class="course-title">Graphic Design</div>
+            <div class="progress-bar-container">
+                <div class="progress-bar" style="width: 90%;"></div>
+            </div>
+            <span class="certificate-link"
+                onclick="generateCertificate('Emmanuel Brima Koroma', 'Graphic Design')">Download Certificate</span>
+        </div>
+
+        <div class="course-card">
+            <div class="course-title">Mobile App Development</div>
+            <div class="progress-bar-container">
+                <div class="progress-bar" style="width: 75%;"></div>
+            </div>
+            <span class="certificate-link"
+                onclick="generateCertificate('Emmanuel Brima Koroma', 'Mobile App Development')">Download
+                Certificate</span>
+        </div>
+
+        <div class="course-card">
+            <div class="course-title">Machine Learning</div>
+            <div class="progress-bar-container">
+                <div class="progress-bar" style="width: 80%;"></div>
+            </div>
+            <span class="certificate-link"
+                onclick="generateCertificate('Emmanuel Brima Koroma', 'Machine Learning')">Download Certificate</span>
+        </div>
+
+        <div class="course-card">
+            <div class="course-title">Cybersecurity</div>
+            <div class="progress-bar-container">
+                <div class="progress-bar" style="width: 65%;"></div>
+            </div>
+            <span class="certificate-link"
+                onclick="generateCertificate('Emmanuel Brima Koroma', 'Cybersecurity')">Download Certificate</span>
+        </div>
+
+        <div class="course-card">
+            <div class="course-title">Cloud Computing</div>
+            <div class="progress-bar-container">
+                <div class="progress-bar" style="width: 50%;"></div>
+            </div>
+            <span class="certificate-link"
+                onclick="generateCertificate('Emmanuel Brima Koroma', 'Cloud Computing')">Download Certificate</span>
+        </div>
+
+        <div class="course-card">
+            <div class="course-title">Blockchain</div>
+            <div class="progress-bar-container">
+                <div class="progress-bar" style="width: 55%;"></div>
+            </div>
+            <span class="certificate-link" onclick="generateCertificate('Emmanuel Brima Koroma', 'Blockchain')">Download
+                Certificate</span>
+        </div>
+
+        <div class="course-card">
+            <div class="course-title">Artificial Intelligence</div>
+            <div class="progress-bar-container">
+                <div class="progress-bar" style="width: 80%;"></div>
+            </div>
+            <span class="certificate-link"
+                onclick="generateCertificate('Emmanuel Brima Koroma', 'Artificial Intelligence')">Download
+                Certificate</span>
+        </div>
+    </div>
+
+    <!-- Hidden certificate template -->
+    <div id="certificate-template">
+        <img src="https://via.placeholder.com/150" alt="Logo" class="certificate-logo" />
+        <h1>Certificate of Completion</h1>
+        <p>This is to certify that</p>
+        <h2 id="student-name">[Name]</h2>
+        <p>has successfully completed the course</p>
+        <h2 id="course-name">[Course]</h2>
+        <p>Date: <span id="date"></span></p>
+        <div class="certificate-signature">
+            <p>Signature</p>
+        </div>
+    </div>
+
+    <script>
+        function generateCertificate(name, course) {
+            // Dynamic certificate info
+            document.getElementById("student-name").textContent = name;
+            document.getElementById("course-name").textContent = course;
+            document.getElementById("date").textContent = new Date().toLocaleDateString();
+
+            // Use html2pdf to generate the certificate
+            const element = document.getElementById("certificate-template");
+            html2pdf().from(element).save(`${course}_Certificate.pdf`);
+        }
+    </script>
+
+</body>
+
+</html>

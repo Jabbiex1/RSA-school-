@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Student Portal - Dashboard</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    body, html {
+      margin: 0; padding: 0; font-family: Arial, sans-serif;
+      background-color: #e6f0ff;
+      color: #0b3d91;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    header {
+      background-color: #0b3d91;
+      color: white;
+      padding: 15px 30px;
+      font-size: 20px;
+      font-weight: bold;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    header button {
+      background-color: #4a75d1;
+      border: none;
+      padding: 8px 15px;
+      border-radius: 4px;
+      color: white;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    header button:hover {
+      background-color: #093270;
+    }
+    .container {
+      display: flex;
+      flex: 1;
+      height: calc(100vh - 60px);
+      overflow: hidden;
+    }
+    nav.sidebar {
+      width: 220px;
+      background-color: #0b3d91;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      padding-top: 30px;
+      box-shadow: 2px 0 8px rgba(0,0,0,0.1);
+    }
+    nav.sidebar a {
+      color: white;
+      padding: 15px 25px;
+      text-decoration: none;
+      font-weight: 600;
+      border-left: 4px solid transparent;
+      transition: background-color 0.3s, border-left-color 0.3s;
+    }
+    nav.sidebar a:hover,
+    nav.sidebar a.active {
+      background-color: #4a75d1;
+      border-left-color: #ffffff;
+    }
+    main.content {
+      flex: 1;
+      padding: 30px 50px;
+      overflow-y: auto;
+      background: white;
+      border-radius: 8px;
+      margin: 20px;
+      box-shadow: 0 0 15px rgb(11 61 145 / 0.15);
+    }
+    h1, h2 {
+      margin-top: 0;
+    }
+    .dashboard-overview {
+      display: flex;
+      gap: 25px;
+      margin-bottom: 30px;
+    }
+    .card {
+      background-color: #f0f6ff;
+      border-radius: 8px;
+      flex: 1;
+      padding: 20px;
+      box-shadow: 0 0 6px rgb(11 61 145 / 0.1);
+      color: #0b3d91;
+    }
+    .card h3 {
+      margin-top: 0;
+      margin-bottom: 10px;
+      font-weight: 600;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 30px;
+    }
+    table th, table td {
+      border: 1px solid #ddd;
+      padding: 10px;
+      text-align: left;
+    }
+    table th {
+      background-color: #0b3d91;
+      color: white;
+    }
+    .profile-section {
+      max-width: 450px;
+    }
+    .profile-section label {
+      font-weight: 600;
+      display: block;
+      margin-top: 15px;
+      margin-bottom: 5px;
+    }
+    .profile-section input {
+      width: 100%;
+      padding: 8px;
+      font-size: 15px;
+      border: 1.5px solid #4a75d1;
+      border-radius: 5px;
+      color: #0b3d91;
+    }
+    .profile-section input[readonly] {
+      background-color: #e3e9f9;
+      color: #4a75d1;
+    }
+    .profile-section button {
+      margin-top: 20px;
+      padding: 10px 15px;
+      background-color: #0b3d91;
+      border: none;
+      border-radius: 5px;
+      color: white;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    .profile-section button:hover {
+      background-color: #093270;
+    }
+    .section {
+      display: none;
+    }
+    .section.active {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div>Student Portal</div>
+    <button id="logout-btn">Logout</button>
+  </header>
+
+  <div class="container">
+    <nav class="sidebar">
+      <a href="#" class="nav-link active" data-section="dashboard">Dashboard</a>
+      <a href="#" class="nav-link" data-section="courses">Courses</a>
+      <a href="#" class="nav-link" data-section="grades">Grades</a>
+      <a href="#" class="nav-link" data-section="announcements">Announcements</a>
+      <a href="#" class="nav-link" data-section="profile">Profile</a>
+    </nav>
+
+    <main class="content">
+      <section id="dashboard" class="section active">
+        <h1>Welcome, <span id="student-name-display"></span>!</h1>
+        <p>Student ID: <strong><span id="student-id-display"></span></strong></p>
+        <div class="dashboard-overview">
+          <div class="card">
+            <h3>Courses Enrolled</h3>
+            <p><strong>4</strong></p>
+          </div>
+          <div class="card">
+            <h3>GPA</h3>
+            <p><strong>3.75</strong></p>
+          </div>
+          <div class="card">
+            <h3>Notifications</h3>
+            <p><strong>3 new</strong></p>
+          </div>
+        </div>
+      </section>
+
+      <section id="courses" class="section">
+        <h2>Your Courses</h2>
+        <table>
+          <thead>
+            <tr><th>Course Code</th><th>Course Name</th><th>Instructor</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>IT101</td><td>Introduction to Programming</td><td>Ms. Smith</td></tr>
+            <tr><td>CS205</td><td>Data Structures</td><td>Mr. Johnson</td></tr>
+            <tr><td>MATH110</td><td>Calculus I</td><td>Dr. Lee</td></tr>
+            <tr><td>ENG150</td><td>Academic Writing</td><td>Ms. Davis</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section id="grades" class="section">
+        <h2>Your Grades</h2>
+        <table>
+          <thead>
+            <tr><th>Course</th><th>Grade</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Introduction to Programming</td><td>A</td></tr>
+            <tr><td>Data Structures</td><td>B+</td></tr>
+            <tr><td>Calculus I</td><td>A-</td></tr>
+            <tr><td>Academic Writing</td><td>B</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section id="announcements" class="section">
+        <h2>Latest Announcements</h2>
+        <ul>
+          <li><strong>2025-07-01:</strong> Semester 2 exams start on July 15.</li>
+          <li><strong>2025-06-25:</strong> New library resources available online.</li>
+          <li><strong>2025-06-20:</strong> Workshop on Cybersecurity next week.</li>
+        </ul>
+      </section>
+
+      <section id="profile" class="section">
+        <h2>Your Profile</h2>
+        <form id="profile-form" class="profile-section">
+          <label for="profile-name">Full Name</label>
+          <input type="text" id="profile-name" readonly />
+          <label for="profile-id">Student ID</label>
+          <input type="text" id="profile-id" readonly />
+          <label for="profile-email">Email</label>
+          <input type="email" id="profile-email" placeholder="Enter your email" required />
+          <label for="profile-phone">Phone Number</label>
+          <input type="tel" id="profile-phone" placeholder="Enter your phone number" required />
+          <button type="submit">Update Profile</button>
+          <div id="profile-msg" style="margin-top:10px; font-size:14px;"></div>
+        </form>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    // Check if student is logged in
+    const loggedInStudent = JSON.parse(localStorage.getItem('loggedInStudent'));
+    if (!loggedInStudent) {
+      window.location.href = 'portal-login.html'; // change as needed
+    }
+
+    // Populate student info
+    document.getElementById('student-name-display').textContent = loggedInStudent.name;
+    document.getElementById('student-id-display').textContent = loggedInStudent.id;
+    document.getElementById('profile-name').value = loggedInStudent.name;
+    document.getElementById('profile-id').value = loggedInStudent.id;
+
+    // Navigation
+    const navLinks = document.querySelectorAll('.nav-link');
+    const sections = document.querySelectorAll('.section');
+
+    navLinks.forEach(link => {
+      link.addEventListener('click', e => {
+        e.preventDefault();
+        navLinks.forEach(l => l.classList.remove('active'));
+        link.classList.add('active');
+        const target = link.getAttribute('data-section');
+        sections.forEach(section => {
+          section.classList.toggle('active', section.id === target);
+        });
+      });
+    });
+
+    // Profile form update (only frontend simulation)
+    const profileForm = document.getElementById('profile-form');
+    const profileMsg = document.getElementById('profile-msg');
+    profileForm.addEventListener('submit', e => {
+      e.preventDefault();
+      const email = document.getElementById('profile-email').value.trim();
+      const phone = document.getElementById('profile-phone').value.trim();
+      if (email === '' || phone === '') {
+        profileMsg.style.color = 'red';
+        profileMsg.textContent = 'Please fill in all required fields.';
+        return;
+      }
+      // Update localStorage session data with new email and phone (simulate)
+      loggedInStudent.email = email;
+      loggedInStudent.phone = phone;
+      localStorage.setItem('loggedInStudent', JSON.stringify(loggedInStudent));
+      profileMsg.style.color = 'green';
+      profileMsg.textContent = 'Profile updated successfully.';
+    });
+
+    // Logout
+    document.getElementById('logout-btn').addEventListener('click', () => {
+      localStorage.removeItem('loggedInStudent');
+      window.location.href = 'portal-login.html'; // change as needed
+    });
+  </script>
+</body>
+</html>

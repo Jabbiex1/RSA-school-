@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Royal Science Academy - Home</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+
+  <style>
+    :root {
+      --primary-color: #0a4d8c;
+      --accent-color: #ff6600;
+      --text-color: #333;
+      --bg-color: #f9f9f9;
+      --white: #ffffff;
+      --header-height: 70px;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      line-height: 1.6;
+      background: var(--bg-color);
+      color: var(--text-color);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    a {
+      text-decoration: none;
+      color: white;
+      transition: 0.3s;
+    }
+
+    /* Header */
+    header {
+      background: var(--primary-color);
+      color: var(--white);
+      padding: 0 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 1000;
+      height: var(--header-height);
+    }
+
+    header h1 {
+      font-size: 1.5rem;
+    }
+
+    nav {
+      display: flex;
+      gap: 1.5rem;
+      transition: right 0.3s ease;
+    }
+
+    nav a {
+      font-weight: 600;
+      position: relative;
+    }
+
+    nav a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -5px;
+      width: 0;
+      height: 2px;
+      background: var(--accent-color);
+      transition: width 0.3s ease;
+    }
+
+    nav a:hover::after,
+    nav a.active::after {
+      width: 100%;
+    }
+
+    nav a.active {
+      color: var(--accent-color);
+    }
+
+    /* Hamburger */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      z-index: 1100;
+    }
+
+    .hamburger div {
+      width: 25px;
+      height: 3px;
+      background: white;
+      border-radius: 2px;
+      transition: all 0.3s ease;
+    }
+
+    .hamburger.active div:nth-child(1) {
+      transform: rotate(45deg) translate(5px, 5px);
+    }
+
+    .hamburger.active div:nth-child(2) {
+      opacity: 0;
+    }
+
+    .hamburger.active div:nth-child(3) {
+      transform: rotate(-45deg) translate(6px, -6px);
+    }
+
+    /* Hero Slider */
+    .hero {
+      margin-top: var(--header-height);
+      position: relative;
+      height: 500px;
+      overflow: hidden;
+    }
+
+    .hero img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      position: absolute;
+      top: 0;
+      left: 0;
+      opacity: 0;
+      transition: opacity 1s ease-in-out;
+    }
+
+    .hero img.active {
+      opacity: 1;
+    }
+
+    .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.4);
+    }
+
+    .hero-content {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: var(--white);
+      text-align: center;
+      z-index: 2;
+    }
+
+    .hero-content h2 {
+      font-size: 2.5rem;
+      text-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
+    }
+
+    .hero-content p {
+      font-size: 1.2rem;
+      text-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
+      margin-top: 1rem;
+    }
+
+    main {
+      max-width: 1200px;
+      margin: 3rem auto 5rem;
+      padding: 0 1rem;
+      flex: 1;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+      margin-bottom: 3rem;
+    }
+
+    .card {
+      background: var(--white);
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .card h3 {
+      color: var(--primary-color);
+      margin-bottom: 1rem;
+    }
+
+    .testimonials {
+      text-align: center;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .testimonials h3 {
+      margin-bottom: 2rem;
+      color: var(--primary-color);
+      font-size: 2rem;
+    }
+
+    .testimonial-item {
+      font-style: italic;
+      font-size: 1.1rem;
+      margin-bottom: 1rem;
+    }
+
+    .testimonial-author {
+      font-weight: 700;
+      margin-top: 0.5rem;
+      color: var(--accent-color);
+    }
+
+    footer {
+      background: var(--primary-color);
+      color: var(--white);
+      padding: 1.5rem;
+      text-align: center;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      nav {
+        position: fixed;
+        top: var(--header-height);
+        right: -250px;
+        width: 200px;
+        height: calc(100vh - var(--header-height));
+        background: var(--primary-color);
+        flex-direction: column;
+        gap: 1.5rem;
+        padding: 2rem 1rem;
+        transition: right 0.3s ease;
+      }
+
+      nav.show {
+        right: 0;
+      }
+
+      .hamburger {
+        display: flex;
+      }
+
+      header h1 {
+        font-size: 1.2rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero {
+        height: 350px;
+      }
+
+      .hero-content h2 {
+        font-size: 1.6rem;
+      }
+
+      .hero-content p {
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <h1>Royal Science Academy</h1>
+    <nav id="navMenu">
+      <a href="index.html" class="active">Home</a>
+      <a href="admission.php">Admission</a>
+      <a href="about.html">About</a>
+      <a href="portal-login.html">Portal</a>
+      <a href="contact.html">Contact</a>
+      <a href="admin-login.php">Admin</a>
+    </nav>
+    <div class="hamburger" id="hamburgerBtn">
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+  </header>
+
+  <section class="hero">
+    <img src="img1.jpeg" class="active" alt="Slide 1">
+    <img src="img2.jpeg" alt="Slide 2">
+    <img src="img3.jpeg" alt="Slide 3">
+    <div class="overlay"></div>
+    <div class="hero-content">
+      <h2>Empowering Future Innovators</h2>
+      <p>Providing quality, science-oriented education from Kindergarten to Junior Secondary School.</p>
+    </div>
+  </section>
+
+  <main>
+    <div class="cards">
+      <div class="card">
+        <h3>Mission</h3>
+        <p>To nurture excellence in education, creativity, and innovation by providing a well-rounded, inclusive, and forward-thinking learning environment.</p>
+      </div>
+      <div class="card">
+        <h3>Vision</h3>
+        <p>To be a leading center of academic excellence in Sierra Leone, shaping future leaders through transformative education grounded in science, technology, and values.</p>
+      </div>
+      <div class="card">
+        <h3>Academic Overview</h3>
+        <p>We offer a comprehensive program for students from Kindergarten through Junior Secondary School. Our curriculum includes Science, Mathematics, English, Social Studies, Technology, arts, and more to foster creativity and critical thinking.</p>
+      </div>
+      <div class="card">
+        <h3>Extracurricular Activities</h3>
+        <p>Students engage in clubs, sports, and arts programs to encourage creativity, teamwork, and leadership.</p>
+      </div>
+    </div>
+
+    <section class="testimonials">
+      <h3>What Our Community Says</h3>
+      <p class="testimonial-item">"The Royal Science Academy has truly transformed my child's learning experience. The teachers are dedicated and the curriculum is top-notch."</p>
+      <p class="testimonial-author">— Mr Jabbie, Parent</p>
+
+      <p class="testimonial-item">"A wonderful place to grow academically and personally. The extracurricular activities are very engaging."</p>
+      <p class="testimonial-author">— Angella Kamara, Student</p>
+    </section>
+  </main>
+
+  <footer>
+    &copy; 2025 Royal Science Academy. All rights reserved.
+  </footer>
+
+  <script>
+    const hamburger = document.getElementById('hamburgerBtn');
+    const navMenu = document.getElementById('navMenu');
+
+    hamburger.addEventListener('click', () => {
+      navMenu.classList.toggle('show');
+      hamburger.classList.toggle('active');
+    });
+
+    // Hero slider
+    const heroSlides = document.querySelectorAll(".hero img");
+    let heroIndex = 0;
+    setInterval(() => {
+      heroSlides[heroIndex].classList.remove("active");
+      heroIndex = (heroIndex + 1) % heroSlides.length;
+      heroSlides[heroIndex].classList.add("active");
+    }, 4000);
+  </script>
+</body>
+
+</html>
+
+<!-- Chatbot UI -->
+<div id="chatbot-button" title="Chat with us!">💬</div>
+
+<div id="chatbot-container" aria-live="polite" aria-label="Chatbot window" aria-hidden="true" role="dialog">
+  <div id="chatbot-header" tabindex="0">
+    <span>Chatbot</span>
+    <button id="chatbot-close" aria-label="Close Chatbot">&times;</button>
+  </div>
+  <div id="chatbot-messages" tabindex="0"></div>
+  <form id="chatbot-form" aria-label="Send a message to chatbot">
+    <input type="text" id="chatbot-input" placeholder="Type your message here..." autocomplete="off" required aria-required="true" />
+    <button type="submit" aria-label="Send message">Send</button>
+  </form>
+</div>
+
+<script>
+  // Simple Chatbot UI toggle
+  const chatbotButton = document.getElementById('chatbot-button');
+  const chatbotContainer = document.getElementById('chatbot-container');
+  const chatbotClose = document.getElementById('chatbot-close');
+  const chatbotMessages = document.getElementById('chatbot-messages');
+  const chatbotForm = document.getElementById('chatbot-form');
+  const chatbotInput = document.getElementById('chatbot-input');
+
+  chatbotButton.addEventListener('click', () => {
+    chatbotContainer.style.display = 'block';
+    chatbotContainer.setAttribute('aria-hidden', 'false');
+    chatbotInput.focus();
+  });
+
+  chatbotClose.addEventListener('click', () => {
+    chatbotContainer.style.display = 'none';
+    chatbotContainer.setAttribute('aria-hidden', 'true');
+    chatbotButton.focus();
+  });
+
+  chatbotForm.addEventListener('submit', async e => {
+  e.preventDefault();
+  const userMessage = chatbotInput.value.trim();
+  if (!userMessage) return;
+
+  addChatMessage('You', userMessage);
+  chatbotInput.value = '';
+  chatbotInput.focus();
+
+  try {
+    const response = await fetch('chat.php', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ message: userMessage }),
+    });
+
+    if (!response.ok) throw new Error('Network response was not ok');
+
+    const data = await response.json();
+    const botReply = data.reply || 'Sorry, no reply received.';
+
+    addChatMessage('Bot', botReply);
+  } catch (error) {
+    addChatMessage('Bot', 'Sorry, there was an error processing your message.');
+    console.error('Chatbot error:', error);
+  }
+});
+
+
+  function addChatMessage(sender, message) {
+    const msg = document.createElement('div');
+    msg.classList.add('chat-message');
+    msg.innerHTML = `<strong>${sender}:</strong> ${message}`;
+    chatbotMessages.appendChild(msg);
+    chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+  }
+</script>
+
+<style>
+  /* Chatbot styles */
+  #chatbot-button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: var(--accent-color);
+    color: var(--primary-color);
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    font-size: 24px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 4px 10px rgb(255 153 0 / 0.7);
+    transition: background-color 0.3s ease;
+    z-index: 100000;
+    user-select: none;
+  }
+
+  #chatbot-button:hover,
+  #chatbot-button:focus {
+    background-color: #cc7a00;
+    outline: none;
+  }
+
+  #chatbot-container {
+    display: none;
+    position: fixed;
+    bottom: 80px;
+    right: 20px;
+    width: 320px;
+    max-width: 90vw;
+    background-color: white;
+    box-shadow: 0 10px 25px rgb(0 0 0 / 0.15);
+    border-radius: 12px;
+    overflow: hidden;
+    z-index: 100001;
+    font-family: 'Poppins', sans-serif;
+    color: var(--text-color);
+    user-select: text;
+  }
+
+  #chatbot-header {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 0.75rem 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 600;
+    font-size: 1.2rem;
+    user-select: none;
+  }
+
+  #chatbot-header button {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.5rem;
+    cursor: pointer;
+    user-select: none;
+  }
+
+  #chatbot-messages {
+    max-height: 250px;
+    overflow-y: auto;
+    padding: 1rem;
+    font-size: 0.95rem;
+    background-color: #f9f9f9;
+  }
+
+  .chat-message {
+    margin-bottom: 0.75rem;
+  }
+
+  #chatbot-form {
+    display: flex;
+    border-top: 1px solid #ddd;
+    background-color: white;
+  }
+
+  #chatbot-input {
+    flex: 1;
+    padding: 0.5rem 1rem;
+    border: none;
+    font-size: 1rem;
+    outline-offset: 2px;
+  }
+
+  #chatbot-input:focus {
+    outline: 2px solid var(--primary-color);
+  }
+
+  #chatbot-form button {
+    background-color: var(--primary-color);
+    border: none;
+    color: white;
+    padding: 0 1.5rem;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  #chatbot-form button:hover,
+  #chatbot-form button:focus {
+    background-color: var(--secondary-color);
+    outline: none;
+  }
+</style>
+
+
+
+
+</body>
+
+</html>

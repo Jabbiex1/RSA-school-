@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Royal Science Academy - School Policies</title>
+    <style>
+        :root {
+            --primary-color: #004aad;
+            --secondary-color: #0094ff;
+            --accent-color: #ffd700;
+            --text-color: #002c61;
+            --white: #ffffff;
+            --bg-color: #f0f6ff;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-size: 20px;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: var(--primary-color);
+            font-size: 32px;
+            margin-bottom: 30px;
+        }
+
+        section.school-policies {
+            background-color: var(--white);
+            border-left: 8px solid var(--primary-color);
+            padding: 30px;
+            border-radius: 10px;
+            margin: auto;
+            max-width: 900px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease;
+        }
+
+        section.school-policies:hover {
+            transform: scale(1.01);
+        }
+
+        section.school-policies h2 {
+            color: var(--primary-color);
+            font-size: 28px;
+            margin-bottom: 20px;
+        }
+
+        section.school-policies ul {
+            list-style-type: disc;
+            padding-left: 25px;
+        }
+
+        section.school-policies li {
+            margin-bottom: 15px;
+            line-height: 1.7;
+        }
+
+        section.school-policies strong {
+            color: var(--primary-color);
+        }
+
+        ul ul {
+            list-style-type: circle;
+            margin-top: 10px;
+        }
+
+        .back-button {
+            display: flex;
+            justify-content: center;
+            margin-top: 40px;
+        }
+
+        .back-button a {
+            background-color: var(--primary-color);
+            color: var(--white);
+            padding: 15px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 20px;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+
+        .back-button a:hover {
+            background-color: var(--secondary-color);
+        }
+
+        @media (max-width: 768px) {
+            body {
+                font-size: 18px;
+            }
+
+            h1 {
+                font-size: 26px;
+            }
+
+            section.school-policies {
+                padding: 20px;
+            }
+
+            section.school-policies h2 {
+                font-size: 24px;
+            }
+
+            .back-button a {
+                font-size: 18px;
+                padding: 12px 24px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Royal Science Academy - School Policies</h1>
+
+    <section class="school-policies">
+        <h2>School Policies</h2>
+        <ul>
+            <li>
+                <strong>Attendance Policy:</strong> Students must maintain at least 85% attendance to qualify for
+                end-of-term examinations.
+            </li>
+            <li>
+                <strong>Code of Conduct:</strong> All students are expected to behave respectfully toward staff and
+                peers, follow school rules, and maintain academic honesty.
+            </li>
+            <li>
+                <strong>Dress Code Policy:</strong>
+                <ul>
+                    <li>👧 <strong>Girls:</strong> White shirt and blue-black skirt or shorts. Hair should be neatly
+                        groomed, with no extravagant accessories.</li>
+                    <li>👦 <strong>Boys:</strong> White shirt and blue trousers. Shirts must be tucked in at all times,
+                        and clean black shoes are required.</li>
+                    <li>📅 <strong>Special Occasions:</strong> Blazers and ties are required during school events or
+                        formal assemblies.</li>
+                    <li>⚠️ <strong>Prohibited:</strong> No jeans, sandals, colored hair, or flashy jewelry are allowed.
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </section>
+
+    <div class="back-button">
+        <a href="portal.html">🔙 Back to Portal</a>
+    </div>
+
+</body>
+
+</html>

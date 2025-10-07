@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Permission Slip - Royal Science Academy</title>
+    <style>
+        :root {
+            --primary-color: #004aad;
+            --secondary-color: #0094ff;
+            --accent-color: #ffd700;
+            --text-color: #002c61;
+            --white: #ffffff;
+            --bg-color: #f0f6ff;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-size: 18px;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: var(--primary-color);
+            font-size: 30px;
+            margin-bottom: 30px;
+        }
+
+        section {
+            background-color: var(--white);
+            border-left: 8px solid var(--primary-color);
+            padding: 30px;
+            border-radius: 10px;
+            margin: auto;
+            max-width: 950px;
+            margin-bottom: 40px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+        }
+
+        h2 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+
+        ul {
+            padding-left: 20px;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        form input,
+        form textarea {
+            padding: 12px;
+            font-size: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+        }
+
+        form button {
+            background-color: var(--primary-color);
+            color: var(--white);
+            padding: 12px 20px;
+            border: none;
+            border-radius: 6px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        form button:hover {
+            background-color: var(--secondary-color);
+        }
+
+        a.download-link {
+            display: inline-block;
+            margin-top: 10px;
+            background-color: var(--primary-color);
+            color: var(--white);
+            padding: 12px 20px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: background-color 0.3s ease;
+        }
+
+        a.download-link:hover {
+            background-color: var(--secondary-color);
+        }
+
+        .btn-back {
+            display: block;
+            text-align: center;
+            margin: 30px auto 10px;
+            background-color: var(--primary-color);
+            color: var(--white);
+            padding: 14px 28px;
+            border-radius: 6px;
+            font-size: 1rem;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-back:hover {
+            background-color: var(--secondary-color);
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 26px;
+            }
+
+            section {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Royal Science Academy - Permission Slip</h1>
+
+    <!-- Permission Slip Section -->
+    <section>
+        <h2>Field Trip Permission Slip</h2>
+        <p>Parents/Guardians must complete and submit the field trip permission form before any school outings. Please
+            ensure all sections are filled out accurately.</p>
+        <form action="https://formspree.io/f/yourFormID" method="POST">
+            <input type="text" name="student_name" placeholder="Student Full Name" required />
+            <input type="text" name="student_id" placeholder="Student ID" required />
+            <input type="text" name="parent_name" placeholder="Parent/Guardian Name" required />
+            <input type="tel" name="parent_contact" placeholder="Parent/Guardian Contact Number" required />
+            <textarea name="trip_details" placeholder="Trip Details and Consent" rows="4" required></textarea>
+            <button type="submit">Submit Permission Slip</button>
+        </form>
+    </section>
+
+    <!-- Permission Slip Download Section -->
+    <section>
+        <h2>Download Permission Slip</h2>
+        <p>Click the link below to download the Permission Slip for field trips in PDF format:</p>
+        <a class="download-link" href="permission-slip.pdf" download="RoyalScienceAcademy_PermissionSlip.pdf">Download
+            Permission Slip (PDF)</a>
+    </section>
+
+
+
+    <!-- Back to Portal Button -->
+    <a class="btn-back" href="portal.html">← Back to Portal</a>
+</body>
+
+</html>

@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Portal Login - Royal Science Academy</title>
+  <style>
+    :root {
+      --primary: #004aad;
+      --primary-dark: #002e7a;
+      --white: #ffffff;
+      --error: #e53935;
+      --gray: #f0f4fc;
+      --font: 'Poppins', sans-serif;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+
+    body, html {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      font-family: var(--font);
+      background-color: var(--gray);
+      color: #222;
+    }
+
+    .container {
+      display: flex;
+      height: 100vh;
+      width: 100%;
+      overflow: hidden;
+    }
+
+    /* === LEFT PANEL === */
+    .left-panel {
+      flex: 1.3;
+      background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+      color: var(--white);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 2rem;
+      position: relative;
+      overflow: hidden;
+      z-index: 1;
+    }
+
+    .left-panel::before,
+    .left-panel::after {
+      content: '';
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(90px);
+      opacity: 0.25;
+      animation: float 12s ease-in-out infinite alternate;
+      z-index: 0;
+    }
+
+    .left-panel::before {
+      width: 300px;
+      height: 300px;
+      background: #66a3ff;
+      top: 20%;
+      left: 15%;
+    }
+
+    .left-panel::after {
+      width: 400px;
+      height: 400px;
+      background: #00317a;
+      bottom: 15%;
+      right: 10%;
+    }
+
+    @keyframes float {
+      from { transform: translateY(0) translateX(0); }
+      to { transform: translateY(-20px) translateX(10px); }
+    }
+
+    .left-panel img {
+      width: 110px;
+      height: 110px;
+      border-radius: 20px;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+      object-fit: cover;
+      margin-bottom: 1.5rem;
+      z-index: 2;
+    }
+
+    .left-panel h1 {
+      font-size: 2.7rem;
+      font-weight: 800;
+      text-align: center;
+      z-index: 2;
+      margin: 0;
+      line-height: 1.2;
+    }
+
+    /* === RIGHT PANEL === */
+    .right-panel {
+      flex: 1;
+      background-color: var(--white);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 3rem 2rem;
+      box-shadow: -12px 0 40px rgba(0, 74, 173, 0.1);
+      position: relative;
+    }
+
+    .login-card {
+      width: 100%;
+      max-width: 400px;
+      animation: fadeInUp 0.8s ease;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        transform: translateY(30px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    .login-card h2 {
+      font-size: 2rem;
+      color: var(--primary);
+      font-weight: 700;
+      margin-bottom: 2rem;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 0.4rem;
+      font-weight: 600;
+      color: var(--primary);
+      text-align: left;
+    }
+
+    select {
+      width: 100%;
+      padding: 14px;
+      border-radius: 10px;
+      border: 1.6px solid #ccc;
+      font-size: 1rem;
+      background-color: #fff;
+      background-image: url('data:image/svg+xml;utf8,<svg fill="%23004aad" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>');
+      background-repeat: no-repeat;
+      background-position: right 14px center;
+      background-size: 16px;
+      appearance: none;
+      transition: all 0.3s ease;
+      box-shadow: inset 0 2px 6px rgba(0,0,0,0.05);
+    }
+
+    select:focus {
+      border-color: var(--primary);
+      outline: none;
+      box-shadow: 0 0 8px var(--primary);
+    }
+
+    .error-msg {
+      color: var(--error);
+      font-weight: 600;
+      font-size: 0.9rem;
+      margin-top: 1rem;
+      min-height: 1.4em;
+      text-align: left;
+    }
+
+    button {
+      margin-top: 2.5rem;
+      width: 100%;
+      padding: 15px;
+      border: none;
+      border-radius: 12px;
+      background-color: var(--primary);
+      color: var(--white);
+      font-size: 1.2rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.3s ease, box-shadow 0.3s ease;
+      box-shadow: 0 6px 15px rgba(0,74,173,0.4);
+    }
+
+    button:hover {
+      background-color: var(--primary-dark);
+      box-shadow: 0 8px 22px rgba(0,74,173,0.5);
+    }
+
+    /* Back icon */
+    .back-icon {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      background-color: var(--primary);
+      color: var(--white);
+      padding: 8px 14px;
+      font-weight: 600;
+      border-radius: 30px;
+      font-size: 1rem;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      z-index: 10;
+      box-shadow: 0 4px 10px rgba(0,74,173,0.6);
+      transition: background 0.3s ease;
+    }
+
+    .back-icon:hover {
+      background-color: var(--primary-dark);
+    }
+
+    .back-icon svg {
+      width: 20px;
+      height: 20px;
+      fill: white;
+    }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .container {
+        flex-direction: column;
+      }
+
+      .left-panel {
+        display: none;
+      }
+
+      .right-panel {
+        flex: none;
+        width: 100%;
+        padding: 2rem 1rem;
+        box-shadow: none;
+      }
+
+      .login-card {
+        max-width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container" role="main" aria-label="Portal role selection">
+    <section class="left-panel" aria-hidden="true">
+      <img src="Royal logo.jpeg" alt="Royal Science Academy Logo" />
+      <h1>Royal Science Academy</h1>
+    </section>
+
+    <section class="right-panel">
+      <div class="login-card">
+        <h2>Login to Portal</h2>
+        <form id="roleForm" novalidate>
+          <label for="roleSelect">Select Role</label>
+          <select id="roleSelect" required aria-required="true" aria-describedby="errorMsg">
+            <option value="" disabled selected>-- Select Role --</option>
+            <option value="student">Student</option>
+            <option value="parent">Parent</option>
+            <option value="teacher">Teacher</option>
+            <option value="admin">Admin</option>
+          </select>
+          <div class="error-msg" id="errorMsg" role="alert" aria-live="assertive"></div>
+          <button type="submit">Continue</button>
+        </form>
+      </div>
+    </section>
+  </div>
+
+ <a href="home.html" class="back-icon" title="Go Back">&#8592;</a>
+    <svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6" /></svg>
+    Back
+  </a>
+
+  <script>
+    const roleForm = document.getElementById('roleForm');
+    const roleSelect = document.getElementById('roleSelect');
+    const errorMsg = document.getElementById('errorMsg');
+
+    roleForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+      errorMsg.textContent = '';
+
+      const role = roleSelect.value;
+      if (!role) {
+        errorMsg.textContent = 'Please select a role to continue.';
+        return;
+      }
+
+      const routes = {
+        student: 'student-login.php',
+        parent: 'parent-login.php',
+        teacher: 'teacher-login.php',
+        admin: 'admin-login.php'
+      };
+
+      if (routes[role]) {
+        window.location.href = routes[role];
+      } else {
+        errorMsg.textContent = 'Invalid role selected.';
+      }
+    });
+  </script>
+</body>
+</html>
